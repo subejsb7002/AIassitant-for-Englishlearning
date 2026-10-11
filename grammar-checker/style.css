@@ -5,10 +5,76 @@ body {
   padding: 30px 20px;
   color: #333;
 }
-h1 {
+/* 顶部栏 */
+.top-bar {
+  position: relative;
   text-align: center;
   margin-bottom: 16px;
+}
+.top-bar h1 {
   font-size: 26px;
+  margin: 0;
+}
+.top-bar-actions {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  gap: 8px;
+}
+.top-bar-btn {
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  cursor: pointer;
+  color: #555;
+  font-family: inherit;
+  transition: all 0.2s;
+}
+.top-bar-btn:hover {
+  background: #e8e8e8;
+  color: #333;
+}
+
+/* 模式切换 */
+.mode-switcher {
+  display: flex;
+  justify-content: center;
+  gap: 0;
+  margin-bottom: 18px;
+}
+.mode-tab {
+  padding: 9px 28px;
+  border: 2px solid #d0d0d0;
+  background: #f5f5f5;
+  color: #666;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+.mode-tab:first-child {
+  border-radius: 10px 0 0 10px;
+}
+.mode-tab:last-child {
+  border-radius: 0 10px 10px 0;
+}
+.mode-tab:not(:first-child) {
+  margin-left: -2px;
+}
+.mode-tab.active {
+  background: #2563eb;
+  color: white;
+  border-color: #2563eb;
+  position: relative;
+  z-index: 1;
+}
+.mode-tab:not(.active):hover {
+  background: #e8e8e8;
 }
 
 /* 图例 */
@@ -27,7 +93,7 @@ h1 {
 }
 .dot.grammar  { background: rgba(231, 76, 60, 0.6);  border: 2px solid #e74c3c; }
 .dot.spelling { background: rgba(230, 126, 34, 0.6); border: 2px solid #e67e22; }
-.dot.usage    { background: rgba(39, 174, 96, 0.6);  border: 2px solid #27ae60; }
+.dot.usage    { background: rgba(241, 196, 15, 0.7); border: 2px solid #d4ac0d; }
 
 /* 主容器 */
 .app-container {
@@ -84,17 +150,40 @@ h1 {
 .hl:hover { filter: brightness(0.9); }
 .hl-grammar  { background: rgba(231, 76, 60, 0.30);  border-bottom: 2px solid #e74c3c; }
 .hl-spelling { background: rgba(230, 126, 34, 0.30); border-bottom: 2px solid #e67e22; }
-.hl-usage    { background: rgba(39, 174, 96, 0.30);  border-bottom: 2px solid #27ae60; }
+.hl-usage    { background: rgba(241, 196, 15, 0.35); border-bottom: 2px solid #d4ac0d; }
 .hl.active {
   box-shadow: 0 0 0 2px #4a90d9;
   background: rgba(74, 144, 217, 0.25);
 }
 
+/* 实时字数 */
+.word-count {
+  text-align: right;
+  font-size: 13px;
+  color: #b0b0b0;
+  margin-top: 6px;
+  padding-right: 4px;
+  transition: color 0.2s;
+}
+.word-count.toefl-warn {
+  color: #e67e22;
+  font-weight: 600;
+}
+.word-count.toefl-ok {
+  color: #27ae60;
+  font-weight: 600;
+}
+
 /* 按钮 */
+.button-group {
+  margin-top: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
 .button-row {
   display: flex;
   gap: 12px;
-  margin-top: 14px;
 }
 .button-row button {
   flex: 1;
@@ -103,7 +192,7 @@ h1 {
   border-radius: 12px;
   font-size: 16px;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: background 0.2s, color 0.2s;
   font-family: inherit;
 }
 #checkBtn { background: #4a90d9; color: white; }
@@ -112,8 +201,53 @@ h1 {
 #optimizeBtn { background: #8e44ad; color: white; }
 #optimizeBtn:hover { background: #732d91; }
 #optimizeBtn:disabled { background: #c3a5d6; cursor: not-allowed; }
-#editBtn { background: #e0e0e0; color: #333; }
+#editBtn {
+  width: 100%;
+  padding: 13px;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.2s;
+  font-family: inherit;
+  background: #e0e0e0;
+  color: #333;
+}
 #editBtn:hover { background: #cfcfcf; }
+#generateTopicBtn { background: #2563eb; color: white; }
+#generateTopicBtn:hover { background: #1d4ed8; }
+#generateTopicBtn:disabled { background: #93b4f0; cursor: not-allowed; }
+#toeflScoreBtn { background: #2563eb; color: white; }
+#toeflScoreBtn:hover { background: #1d4ed8; }
+#toeflScoreBtn:disabled { background: #93b4f0; cursor: not-allowed; }
+
+/* 托福模式下的按钮布局 */
+.button-row.toefl-layout {
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.button-row.toefl-layout #generateTopicBtn,
+.button-row.toefl-layout #toeflScoreBtn {
+  flex: 1 1 calc(50% - 5px);
+}
+.button-row.toefl-layout #checkBtn {
+  flex: 1 1 100%;
+  background: #edf0f5;
+  color: #64748b;
+  border: 1px solid #dbe2ea;
+  padding: 9px 13px;
+  font-size: 14px;
+  border-radius: 10px;
+}
+.button-row.toefl-layout #checkBtn:hover {
+  background: #e2e8f0;
+  color: #334155;
+}
+.button-row.toefl-layout #checkBtn:disabled {
+  background: #f1f5f9;
+  color: #94a3b8;
+  cursor: not-allowed;
+}
 
 /* 统计条 */
 .stats {
@@ -128,11 +262,57 @@ h1 {
 
 /* 右侧面板 */
 .result-panel {
-  overflow-y: auto;
-  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
   border: 1px solid #e0e0e0;
   border-radius: 12px;
   background: #fafafa;
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* 托福模式 Tab 条 */
+.toefl-tab-bar {
+  display: flex;
+  background: #edf2f7;
+  border-bottom: 1px solid #e2e8f0;
+  padding: 6px 10px;
+  gap: 8px;
+  flex-shrink: 0;
+}
+.toefl-tab {
+  flex: 1;
+  padding: 8px 16px;
+  border: none;
+  background: transparent;
+  color: #64748b;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+.toefl-tab:hover:not(.active) {
+  background: rgba(0, 0, 0, 0.04);
+  color: #334155;
+}
+.toefl-tab.active {
+  background: #ffffff;
+  color: #2563eb;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+.result-body {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 20px;
 }
 .empty-state {
   color: #999;
@@ -158,7 +338,7 @@ h1 {
 }
 .detail-card.type-grammar  { border-left-color: #e74c3c; }
 .detail-card.type-spelling { border-left-color: #e67e22; }
-.detail-card.type-usage    { border-left-color: #27ae60; }
+.detail-card.type-usage    { border-left-color: #eab308; }
 
 .detail-type {
   display: inline-block;
@@ -170,7 +350,7 @@ h1 {
 }
 .detail-card.type-grammar  .detail-type { background: #fde8e8; color: #c0392b; }
 .detail-card.type-spelling .detail-type { background: #fef0e0; color: #b2610f; }
-.detail-card.type-usage    .detail-type { background: #e8f8e8; color: #1e7e34; }
+.detail-card.type-usage    .detail-type { background: #fef9c3; color: #854d0e; }
 
 .detail-section { margin-bottom: 16px; }
 .detail-label {
@@ -302,4 +482,482 @@ h1 {
   font-size: 13px;
   color: #8a6d3b;
   margin-bottom: 14px;
+}
+
+/* ==================== 托福写作模式 ==================== */
+
+/* 题目卡片 */
+.toefl-topic-card {
+  background: white;
+  border-radius: 12px;
+  padding: 18px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+  border-left: 5px solid #2563eb;
+  margin-bottom: 14px;
+  animation: slideIn 0.2s ease;
+}
+.toefl-topic-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #2563eb;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 14px;
+}
+.toefl-topic-section {
+  margin-bottom: 12px;
+}
+.toefl-topic-label {
+  font-size: 12px;
+  color: #2563eb;
+  font-weight: 600;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.toefl-topic-text {
+  font-size: 14px;
+  line-height: 1.7;
+  color: #333;
+  background: #f0f5ff;
+  padding: 10px 14px;
+  border-radius: 8px;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.toefl-topic-instruction {
+  font-size: 13px;
+  color: #1d4ed8;
+  font-weight: 600;
+  background: #dbeafe;
+  padding: 10px 14px;
+  border-radius: 8px;
+  line-height: 1.6;
+}
+
+/* 评分卡片 */
+.score-card {
+  background: white;
+  border-radius: 12px;
+  padding: 0 24px 24px 24px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+  border-left: 5px solid #2563eb;
+  animation: slideIn 0.2s ease;
+  margin-bottom: 16px;
+}
+.score-total {
+  text-align: center;
+  position: sticky;
+  top: 0;
+  background: white;
+  padding: 20px 0 16px;
+  margin-bottom: 20px;
+  z-index: 10;
+  border-bottom: 1px solid #f0f4f8;
+}
+.score-total-number {
+  font-size: 48px;
+  font-weight: 700;
+  color: #2563eb;
+  line-height: 1;
+}
+.score-total-max {
+  font-size: 20px;
+  color: #93b4f0;
+  font-weight: 400;
+}
+.score-total-label {
+  font-size: 13px;
+  color: #999;
+  margin-top: 4px;
+}
+
+.score-dimensions {
+  margin-bottom: 20px;
+}
+.score-dim-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.score-dim-label {
+  font-size: 13px;
+  color: #555;
+  width: 155px;
+  flex-shrink: 0;
+  text-align: right;
+  line-height: 1.3;
+}
+.score-dim-bar-bg {
+  flex: 1;
+  height: 10px;
+  background: #e8ecf2;
+  border-radius: 5px;
+  overflow: hidden;
+}
+.score-dim-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #2563eb, #60a5fa);
+  border-radius: 5px;
+  transition: width 0.6s ease;
+}
+.score-dim-value {
+  font-size: 14px;
+  font-weight: 600;
+  color: #2563eb;
+  min-width: 48px;
+  flex-shrink: 0;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.score-comment {
+  background: #f0f5ff;
+  padding: 14px 16px;
+  border-radius: 10px;
+  font-size: 15px;
+  color: #333;
+  line-height: 1.8;
+  margin-bottom: 16px;
+}
+.score-suggestions-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: #666;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.score-suggestion-item {
+  font-size: 14px;
+  color: #444;
+  line-height: 1.7;
+  padding: 6px 0 6px 16px;
+  position: relative;
+}
+.score-suggestion-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 13px;
+  width: 7px;
+  height: 7px;
+  background: #2563eb;
+  border-radius: 50%;
+}
+
+/* 范文按钮 */
+.toefl-rewrite-btn {
+  display: block;
+  width: 100%;
+  padding: 13px;
+  margin-top: 18px;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+  font-family: inherit;
+  background: #8e44ad;
+  color: white;
+}
+.toefl-rewrite-btn:hover { background: #732d91; }
+.toefl-rewrite-btn:disabled { background: #c3a5d6; cursor: not-allowed; }
+
+/* 范文对比分数 */
+.score-compare {
+  text-align: center;
+  font-size: 13px;
+  color: #8e44ad;
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+
+
+/* ==================== 历史抽屉 ==================== */
+
+.drawer-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 900;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+.drawer-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.history-drawer {
+  position: fixed;
+  top: 0; right: 0; bottom: 0;
+  width: 360px;
+  background: #fff;
+  box-shadow: -4px 0 20px rgba(0, 0, 0, 0.12);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
+}
+.history-drawer.open {
+  transform: translateX(0);
+}
+
+.drawer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 20px;
+  border-bottom: 1px solid #eee;
+  flex-shrink: 0;
+}
+.drawer-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+}
+.drawer-close {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: #999;
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+.drawer-close:hover {
+  background: #f0f0f0;
+  color: #333;
+}
+
+.drawer-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 12px;
+}
+
+.drawer-empty {
+  color: #bbb;
+  text-align: center;
+  margin-top: 60px;
+  font-size: 14px;
+  line-height: 2;
+}
+
+.drawer-item {
+  background: #fafafa;
+  border: 1px solid #eee;
+  border-radius: 10px;
+  padding: 12px 14px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  transition: all 0.15s;
+  position: relative;
+}
+.drawer-item:hover {
+  background: #f0f5ff;
+  border-color: #c5d8f0;
+}
+.drawer-item-top {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+.drawer-item-time {
+  font-size: 12px;
+  color: #999;
+}
+.drawer-item-tag {
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-weight: 600;
+}
+.drawer-item-tag.tag-free { background: #f0f0f0; color: #666; }
+.drawer-item-tag.tag-toefl { background: #dbeafe; color: #1d4ed8; }
+.drawer-item-tag.tag-gaokao { background: #fef3c7; color: #b45309; }
+.drawer-item-tag.tag-check { background: #fde8e8; color: #c0392b; }
+.drawer-item-tag.tag-optimize { background: #f0eaf5; color: #8e44ad; }
+.drawer-item-tag.tag-toefl-score { background: #dbeafe; color: #1d4ed8; }
+.drawer-item-tag.tag-gaokao-score { background: #fef3c7; color: #b45309; }
+.drawer-item-preview {
+  font-size: 13px;
+  color: #666;
+  line-height: 1.5;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.drawer-item-delete {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+  color: #ccc;
+  padding: 4px;
+  border-radius: 4px;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+.drawer-item-delete:hover {
+  color: #e74c3c;
+  background: #fde8e8;
+}
+
+.drawer-footer {
+  padding: 12px 16px;
+  border-top: 1px solid #eee;
+  flex-shrink: 0;
+}
+.drawer-clear-btn {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: #fff;
+  color: #999;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+.drawer-clear-btn:hover {
+  background: #fde8e8;
+  color: #e74c3c;
+  border-color: #f5c6c6;
+}
+
+/* ==================== 设置弹窗 ==================== */
+
+.modal-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 1100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+.modal-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.settings-modal {
+  background: #fff;
+  border-radius: 14px;
+  padding: 28px;
+  width: 480px;
+  max-width: 90vw;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+  transform: translateY(10px);
+  transition: transform 0.25s ease;
+}
+.modal-overlay.active .settings-modal {
+  transform: translateY(0);
+}
+
+.settings-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 20px;
+}
+.settings-field {
+  margin-bottom: 20px;
+}
+.settings-label {
+  display: block;
+  font-size: 13px;
+  color: #666;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+.settings-input {
+  width: 100%;
+  padding: 10px 14px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: 'Consolas', monospace;
+  transition: border-color 0.2s;
+}
+.settings-input:focus {
+  outline: none;
+  border-color: #4a90d9;
+}
+.settings-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.settings-actions-right {
+  display: flex;
+  gap: 8px;
+}
+.settings-btn {
+  padding: 9px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.2s;
+}
+.settings-btn.primary {
+  background: #4a90d9;
+  color: white;
+}
+.settings-btn.primary:hover { background: #357abd; }
+.settings-btn.secondary {
+  background: #f0f0f0;
+  color: #555;
+}
+.settings-btn.secondary:hover { background: #e0e0e0; }
+.settings-msg {
+  margin-top: 12px;
+  font-size: 13px;
+  line-height: 1.5;
+  min-height: 20px;
+}
+.settings-msg.success { color: #27ae60; }
+.settings-msg.error { color: #e74c3c; }
+
+/* ==================== 提示条 ==================== */
+
+.toast-bar {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-80px);
+  background: #27ae60;
+  color: white;
+  padding: 10px 24px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  z-index: 2000;
+  opacity: 0;
+  transition: all 0.35s ease;
+  pointer-events: none;
+}
+.toast-bar.visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
 }

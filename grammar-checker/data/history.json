@@ -1,0 +1,125 @@
+[
+  {
+    "id": "1791689429605",
+    "timestamp": 1791689429605,
+    "mode": "free",
+    "type": "check",
+    "text": "The fixing of our desk finally ended up.",
+    "result": {
+      "errors": [
+        {
+          "type": "usage",
+          "original_text": "The fixing of our desk",
+          "suggestion": "The repair of our desk",
+          "explanation": "fixing 作名词表示“修理”不够自然，通常用 repair 或动名词结构（如 fixing our desk）。",
+          "start": 0,
+          "end": 22
+        },
+        {
+          "type": "grammar",
+          "original_text": "finally ended up",
+          "suggestion": "was finally completed",
+          "explanation": "end up 通常需要接补语，不能单独表示“结束/完成”；这里应改用 was finally completed 或 finally ended。",
+          "start": 23,
+          "end": 39
+        }
+      ]
+    }
+  },
+  {
+    "id": "1791690605001",
+    "timestamp": 1791690605001,
+    "mode": "gaokao",
+    "type": "gaokao-score",
+    "text": "ok",
+    "result": {
+      "total": 0.5,
+      "dimensions": {
+        "content": 0.5,
+        "organization": 0.5,
+        "language": 0.5
+      },
+      "comment": "该作文仅写了“ok”两个字母，完全未完成题目要求的任何写作任务，没有覆盖申请理由、对环保时装秀的理解或创意建议、询问面试安排等要点，也没有邮件格式，无法体现任何组织结构和语言运用能力。",
+      "suggestions": [
+        "认真审题，按照题目要求写一封完整的申请邮件，开头要有称呼（如Dear Mr. Smith），结尾要有署名（如Yours, Li Hua）。",
+        "覆盖全部三个写作要点：说明申请理由（英语口语能力、主持经验、对环保的兴趣等），介绍对环保时装秀的理解或创意建议，询问面试或选拔安排并表达感谢。",
+        "注意词数控制在80–120词左右，使用得体的邮件语言和适当的衔接词，使行文连贯。"
+      ]
+    },
+    "topic": {
+      "title": "应用文写作：给外教写邮件申请成为校园环保时装秀的主持人",
+      "situation": "假定你是李华，你校英语俱乐部将举办一场以“变废为宝”为主题的校园环保时装秀，外教Mr. Smith负责选拔主持人。请你给他写一封邮件，申请担任本次活动的英文主持人。",
+      "points": [
+        "说明你申请的理由（如英语口语能力、主持经验、对环保的兴趣等）",
+        "简要介绍你对环保时装秀的理解或创意建议",
+        "询问面试或选拔的具体安排并表达感谢"
+      ],
+      "instruction": "注意：1. 词数 80–120 左右；2. 可以适当增加细节，以使行文连贯；3. 格式规范，语言得体。",
+      "type": "gaokao"
+    }
+  },
+  {
+    "id": "1791691098953",
+    "timestamp": 1791691098953,
+    "mode": "gaokao",
+    "type": "gaokao-score",
+    "text": "ok",
+    "result": {
+      "total": 0,
+      "dimensions": {
+        "content": 0,
+        "organization": 0,
+        "language": 0
+      },
+      "comment": "该作文仅写了“ok”一词，完全没有按照题目要求完成写作任务，未覆盖任何内容要点，无组织结构，语言运用严重不足，无法评分。",
+      "suggestions": [
+        "认真审题，按照题目要求写一封完整的申请邮件，包含申请理由、对环保时装秀的理解或建议、询问面试安排并表达感谢等要点。",
+        "注意邮件格式，包括称呼、正文、结束语和署名，语言要得体、正式。",
+        "加强英语基础训练，积累常用词汇和句型，确保能写出80-120词的连贯短文。"
+      ]
+    },
+    "topic": {
+      "title": "应用文写作：给外教写邮件申请成为校园环保时装秀的主持人",
+      "situation": "假定你是李华，你校英语俱乐部将举办一场以“变废为宝”为主题的校园环保时装秀，外教Mr. Smith负责选拔主持人。请你给他写一封邮件，申请担任本次活动的英文主持人。",
+      "points": [
+        "说明你申请的理由（如英语口语能力、主持经验、对环保的兴趣等）",
+        "简要介绍你对环保时装秀的理解或创意建议",
+        "询问面试或选拔的具体安排并表达感谢"
+      ],
+      "instruction": "注意：1. 词数 80–120 左右；2. 可以适当增加细节，以使行文连贯；3. 格式规范，语言得体。",
+      "type": "gaokao"
+    }
+  },
+  {
+    "id": "1791691113122",
+    "timestamp": 1791691113122,
+    "mode": "gaokao",
+    "type": "gaokao-score",
+    "text": "ok",
+    "result": {
+      "total": 0.5,
+      "dimensions": {
+        "content": 0.5,
+        "organization": 0.5,
+        "language": 0.5
+      },
+      "comment": "该作文仅写了“ok”两个字母，完全没有完成题目要求的任何内容要点，未介绍茶文化的历史和地位、茶的种类及特点，也没有邀请对方体验中国茶文化，属于严重跑题且语言能力严重不足的情况。",
+      "suggestions": [
+        "严格按照题目要求，围绕三个写作要点（茶文化的历史和地位、茶的主要种类及特点、邀请体验）逐一展开，确保内容完整。",
+        "使用规范的英文邮件格式，包括称呼（如Dear Peter）、正文和落款（如Yours, Li Hua），语言要得体。",
+        "积累与茶文化相关的词汇和表达，如tea culture, history, green tea, black tea, oolong tea, aroma, flavor, experience等，并练习使用多样句式（如定语从句、非谓语动词等）提升语言质量。"
+      ]
+    },
+    "topic": {
+      "title": "应用文写作：给外国网友写邮件介绍中国茶文化",
+      "situation": "假定你是红星中学高三学生李华，你在网上结识了一位对中国文化非常感兴趣的英国朋友Peter。他最近来信说他正在学习中文，并希望你能给他介绍一些中国文化。请你给他回一封邮件，介绍中国的茶文化。",
+      "points": [
+        "茶文化的历史和地位",
+        "茶的主要种类及特点",
+        "邀请他体验中国茶文化"
+      ],
+      "instruction": "注意：1. 词数80-120左右；2. 可以适当增加细节，以使行文连贯；3. 邮件格式规范，语言得体。",
+      "type": "gaokao"
+    }
+  }
+]

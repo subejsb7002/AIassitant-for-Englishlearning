@@ -1,41 +1,109 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI 语法检查器</title>
+  <title>AI Grammar Checker & Writing Assistant</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>📝 AI 英语语法检查与优化</h1>
+  <div class="top-bar">
+    <h1>📝 AI English Grammar & Writing Assistant</h1>
+    <div class="top-bar-actions">
+      <button class="top-bar-btn" id="historyBtn">📚 History</button>
+      <button class="top-bar-btn" id="settingsBtn">⚙ Settings</button>
+    </div>
+  </div>
 
-  <div class="legend">
-    <span class="legend-item"><span class="dot grammar"></span>语法错误</span>
-    <span class="legend-item"><span class="dot spelling"></span>拼写错误</span>
-    <span class="legend-item"><span class="dot usage"></span>用法不当</span>
+  <div class="mode-switcher">
+    <button class="mode-tab active" data-mode="free">Free Writing</button>
+    <button class="mode-tab" data-mode="toefl">TOEFL Writing</button>
+    <button class="mode-tab" data-mode="gaokao">Gaokao Writing</button>
+  </div>
+
+  <div class="legend" id="legend">
+    <span class="legend-item"><span class="dot grammar"></span>Grammar</span>
+    <span class="legend-item"><span class="dot spelling"></span>Spelling</span>
+    <span class="legend-item"><span class="dot usage"></span>Word Usage</span>
   </div>
 
   <div class="app-container">
-    <div class="input-panel">
+    <div class="input-panel" id="inputPanel">
       <div class="editor-wrapper">
-        <textarea id="sentenceInput" placeholder="请输入英文文本（支持长文本）&#10;&#10;例如：She don't likes coffee. He go to school everyday..."></textarea>
+        <textarea id="sentenceInput" placeholder="Enter your English text here (long text supported)&#10;&#10;Example: She don't likes coffee. He go to school everyday..."></textarea>
         <div id="highlightedText" class="highlighted-text" style="display:none;"></div>
       </div>
-      <div class="button-row">
-        <button id="checkBtn">🔍 检查语法</button>
-        <button id="optimizeBtn">✨ 优化表达</button>
-        <button id="editBtn" style="display:none;">✏️ 重新编辑</button>
+      <div id="wordCount" class="word-count">Words: 0</div>
+      <div class="button-group" id="buttonGroup">
+        <div class="button-row" id="buttonRow">
+          <button id="generateTopicBtn" style="display:none;">🎲 New Topic</button>
+          <button id="toeflScoreBtn" style="display:none;">📝 Score Essay</button>
+          <button id="checkBtn">🔍 Check Grammar</button>
+          <button id="optimizeBtn">✨ Polish Writing</button>
+        </div>
+        <button id="editBtn" style="display:none;">✏️ Edit Text</button>
       </div>
       <div id="stats" class="stats"></div>
     </div>
 
-    <div class="result-panel" id="resultPanel">
-      <div class="empty-state">
-        <p>点击左侧按钮后，结果将显示在这里</p>
-        <p class="hint">检查后点击高亮色块查看详情；优化后查看高级版本</p>
+    <div class="result-panel" id="resultPanelContainer">
+      <div class="toefl-tab-bar" id="toeflTabBar" style="display:none;">
+        <button class="toefl-tab active" id="toeflTabTopic" data-tab="topic" type="button">📋 Topic</button>
+        <button class="toefl-tab" id="toeflTabScore" data-tab="score" type="button">📊 Score</button>
+      </div>
+      <div class="result-body" id="resultBody">
+        <div id="toeflTopicView" style="display:none;">
+          <div id="toeflTopicCard" class="toefl-topic-card" style="display:none;"></div>
+          <div id="toeflTopicEmpty" class="empty-state">
+            <p>Click "🎲 New Topic" below to start</p>
+          </div>
+        </div>
+        <div id="resultPanel">
+          <div class="empty-state">
+            <p>Click a button on the left to see results here</p>
+            <p class="hint">Click highlighted words to view details after checking, or view the polished version after optimizing</p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
+
+  <!-- 历史抽屉遮罩 -->
+  <div class="drawer-overlay" id="drawerOverlay"></div>
+
+  <!-- 历史抽屉 -->
+  <div class="history-drawer" id="historyDrawer">
+    <div class="drawer-header">
+      <span class="drawer-title">📚 History</span>
+      <button class="drawer-close" id="drawerCloseBtn">✕</button>
+    </div>
+    <div class="drawer-list" id="drawerList"></div>
+    <div class="drawer-footer">
+      <button class="drawer-clear-btn" id="clearHistoryBtn">🗑 Clear All</button>
+    </div>
+  </div>
+
+  <!-- 设置弹窗 -->
+  <div class="modal-overlay" id="settingsOverlay">
+    <div class="settings-modal">
+      <div class="settings-title">⚙ Settings</div>
+      <div class="settings-field">
+        <label class="settings-label">History File Path</label>
+        <input type="text" class="settings-input" id="historyPathInput" placeholder="e.g., E:/my-data/history.json">
+      </div>
+      <div class="settings-actions">
+        <button class="settings-btn secondary" id="settingsDefaultBtn">Reset to Default</button>
+        <div class="settings-actions-right">
+          <button class="settings-btn secondary" id="settingsCancelBtn">Cancel</button>
+          <button class="settings-btn primary" id="settingsSaveBtn">Save</button>
+        </div>
+      </div>
+      <div class="settings-msg" id="settingsMsg"></div>
+    </div>
+  </div>
+
+  <!-- 提示条 -->
+  <div class="toast-bar" id="toastBar"></div>
 
   <script src="app.js"></script>
 </body>
