@@ -56,6 +56,8 @@ npm init -y
 npm install express openai dotenv
 ```
 
+Check if node.js is installed
+
 ### 3. Configure your API key
 
 By default, the backend is configured to use DeepSeek. Create a file named `.env` in the same directory as `server.js` and add your own API key:
